@@ -1,16 +1,36 @@
-/* Bills Tab — Dark, Eye-Catching Version */
+/* General Body & Header */
+body {
+  margin: 0;
+  font-family: "Courier New", monospace;
+  background: #1a1a2e;
+  color: #f0f0f0;
+  min-height: 100vh;
+}
+
+header {
+  padding: 20px;
+  text-align: center;
+  background: linear-gradient(90deg, #2e2e4d, #1a1a2e);
+  box-shadow: 0 4px 15px rgba(255, 154, 203, 0.3);
+}
+
+header h1 {
+  margin: 0;
+  color: #ffe6f3;
+  text-shadow: 1px 1px 3px #ff9acb;
+}
 
 /* Tabs Navigation */
 .tabs {
   display: flex;
   gap: 5px;
-  margin: 20px 0;
+  margin: 20px;
 }
 
 .tabs button {
   flex: 1;
   padding: 12px;
-  background: #2e2e4d;  /* dark base for tabs */
+  background: #2e2e4d;
   border: none;
   border-radius: 8px;
   color: #f0f0f0;
@@ -24,7 +44,7 @@
   transform: scale(1.02);
   box-shadow: 0 0 10px #ff9acb;
 }
-/* Highlight the active tab */
+
 .tabs button.active-tab {
   background: #ff9acb;
   color: #1a1a2e;
@@ -33,19 +53,72 @@
   transform: scale(1.05);
 }
 
-#bills {
+/* Hide inactive tabs */
+.tab {
+  display: none;
   padding: 20px;
-  font-family: "Courier New", monospace;
-  background: #1a1a2e;
-  color: #f0f0f0;
-  min-height: 80vh;
 }
 
-h2 {
+.tab.active {
+  display: block;
+}
+
+/* Tab headers */
+.tab h2 {
   color: #ffe6f3;
   text-align: center;
   margin-bottom: 20px;
   text-shadow: 1px 1px 3px #ff9acb;
+}
+
+/* General Form Styling for all tabs */
+form input,
+form button,
+textarea {
+  padding: 12px;
+  border-radius: 8px;
+  border: none;
+  outline: none;
+  font-family: "Courier New", monospace;
+  font-size: 1rem;
+  margin-bottom: 10px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Input styling */
+form input,
+textarea {
+  background: #2e2e4d;
+  color: #f0f0f0;
+}
+
+form input::placeholder,
+textarea::placeholder {
+  color: #b5b5c3;
+}
+
+form input:focus,
+textarea:focus {
+  box-shadow: 0 0 10px #ff9acb;
+  transform: scale(1.02);
+}
+
+/* Button styling */
+form button {
+  background: linear-gradient(90deg, #ff9acb, #ffe6f3);
+  color: #1a1a2e;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+form button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 15px #ff9acb;
+}
+
+/* Bills Tab */
+#bills {
+  min-height: 60vh;
 }
 
 .bill-form {
@@ -54,53 +127,12 @@ h2 {
   gap: 10px;
 }
 
-.bill-form input,
-.bill-form button {
-  padding: 12px;
-  font-size: 1rem;
-  border: none;
-  border-radius: 8px;
-  outline: none;
-  font-family: "Courier New", monospace;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.bill-form input {
-  background: #2e2e4d;
-  color: #f0f0f0;
-}
-
-.bill-form input::placeholder {
-  color: #b5b5c3;
-}
-
-.bill-form input:focus {
-  box-shadow: 0 0 10px #ff9acb;
-  transform: scale(1.02);
-}
-
-.bill-form button {
-  background: linear-gradient(90deg, #ff9acb, #ffe6f3);
-  color: #1a1a2e;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-.bill-form button:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 15px #ff9acb;
-}
-
-/* Bill List */
-
 .bill-list {
   margin-top: 25px;
   display: flex;
   flex-direction: column;
   gap: 15px;
 }
-
-/* Receipt Item */
 
 .bill-item {
   background: linear-gradient(145deg, #2e2e4d, #1a1a2e);
@@ -149,8 +181,6 @@ h2 {
   box-shadow: 0 0 10px #ff4c61;
 }
 
-/* Receipt Total */
-
 .receipt-total {
   margin-top: 30px;
   text-align: center;
@@ -171,9 +201,25 @@ h2 {
   font-weight: bold;
 }
 
-/* Optional sparkle animation for new bills */
 @keyframes sparkle {
   0% { box-shadow: 0 0 0px #ff9acb; }
   50% { box-shadow: 0 0 15px #ff9acb; }
   100% { box-shadow: 0 0 0px #ff9acb; }
+}
+
+/* Notes Tab */
+#notes textarea {
+  width: 100%;
+  min-height: 200px;
+  resize: vertical;
+}
+
+/* Goals Tab */
+#goals input {
+  width: 100%;
+}
+
+/* Settings Tab */
+#settings input {
+  width: 100%;
 }
