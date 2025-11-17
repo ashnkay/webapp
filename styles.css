@@ -1,5 +1,38 @@
 /* Bills Tab — Dark, Eye-Catching Version */
 
+/* Tabs Navigation */
+.tabs {
+  display: flex;
+  gap: 5px;
+  margin: 20px 0;
+}
+
+.tabs button {
+  flex: 1;
+  padding: 12px;
+  background: #2e2e4d;  /* dark base for tabs */
+  border: none;
+  border-radius: 8px;
+  color: #f0f0f0;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.tabs button:hover {
+  background: #3a3a6a;
+  transform: scale(1.02);
+  box-shadow: 0 0 10px #ff9acb;
+}
+/* Highlight the active tab */
+.tabs button.active-tab {
+  background: #ff9acb;
+  color: #1a1a2e;
+  font-weight: bold;
+  box-shadow: 0 4px 15px rgba(255, 154, 203, 0.7);
+  transform: scale(1.05);
+}
+
 #bills {
   padding: 20px;
   font-family: "Courier New", monospace;
