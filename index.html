@@ -13,6 +13,7 @@
   <!-- iOS support -->
   <link rel="apple-touch-icon" href="icon.png">
   <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="✨Planner✨">
 </head>
 <body>
 
@@ -20,8 +21,9 @@
     <h1>Kayla’s Planner App</h1>
   </header>
 
+  <!-- Tabs Navigation -->
   <nav class="tabs">
-    <button data-tab="home">Home</button>
+    <button data-tab="home" class="active-tab">Home</button>
     <button data-tab="bills">Bills</button>
     <button data-tab="notes">Notes</button>
     <button data-tab="goals">Goals</button>
@@ -56,13 +58,22 @@
     </section>
 
     <!-- NOTES TAB -->
-    <section id="notes" class="tab"></section>
+    <section id="notes" class="tab">
+      <h2>Notes</h2>
+      <p>Write down your thoughts and reminders here.</p>
+    </section>
 
     <!-- GOALS TAB -->
-    <section id="goals" class="tab"></section>
+    <section id="goals" class="tab">
+      <h2>Goals</h2>
+      <p>Track your weekly or long-term goals here.</p>
+    </section>
 
     <!-- SETTINGS TAB -->
-    <section id="settings" class="tab"></section>
+    <section id="settings" class="tab">
+      <h2>Settings</h2>
+      <p>Customize your app experience here.</p>
+    </section>
   </main>
 
   <script src="app.js"></script>
