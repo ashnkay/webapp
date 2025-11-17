@@ -1,59 +1,46 @@
-/* General Body & Header */
 body {
   margin: 0;
   font-family: "Courier New", monospace;
   background: #1a1a2e;
   color: #f0f0f0;
-  min-height: 100vh;
 }
 
+/* Header */
 header {
-  padding: 20px;
   text-align: center;
-  background: linear-gradient(90deg, #2e2e4d, #1a1a2e);
-  box-shadow: 0 4px 15px rgba(255, 154, 203, 0.3);
-}
-
-header h1 {
-  margin: 0;
+  padding: 20px;
+  background: #2e2e4d;
   color: #ffe6f3;
   text-shadow: 1px 1px 3px #ff9acb;
 }
 
-/* Tabs Navigation */
+/* Tabs */
 .tabs {
   display: flex;
-  gap: 5px;
-  margin: 20px;
+  justify-content: center;
+  background: #2e2e4d;
 }
 
 .tabs button {
-  flex: 1;
-  padding: 12px;
-  background: #2e2e4d;
+  background: none;
   border: none;
-  border-radius: 8px;
-  color: #f0f0f0;
-  font-size: 1rem;
+  color: #ffe6f3;
+  padding: 15px 25px;
   cursor: pointer;
-  transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  font-weight: bold;
+  transition: 0.2s;
 }
 
 .tabs button:hover {
-  background: #3a3a6a;
-  transform: scale(1.02);
-  box-shadow: 0 0 10px #ff9acb;
+  color: #ff9acb;
 }
 
-.tabs button.active-tab {
-  background: #ff9acb;
-  color: #1a1a2e;
-  font-weight: bold;
-  box-shadow: 0 4px 15px rgba(255, 154, 203, 0.7);
-  transform: scale(1.05);
+.active-tab {
+  color: #ff9acb;
+  border-bottom: 2px solid #ff9acb;
 }
 
-/* Hide inactive tabs */
+/* Tab sections */
 .tab {
   display: none;
   padding: 20px;
@@ -63,183 +50,149 @@ header h1 {
   display: block;
 }
 
-/* Tab headers */
-.tab h2 {
-  color: #ffe6f3;
-  text-align: center;
-  margin-bottom: 20px;
-  text-shadow: 1px 1px 3px #ff9acb;
-}
-.subtract-btn {
-  position: absolute;
-  right: 80px;
-  top: 10px;
-  font-size: 0.9rem;
-  background: #6bc1ff;
-  border: none;
-  padding: 4px 8px;
-  border-radius: 6px;
-  cursor: pointer;
-  color: #1a1a2e;
-  font-weight: bold;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+/* Calendar grid */
+.calendar-container {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
 }
 
-.subtract-btn:hover {
-  background: #4a9ce0;
-  transform: scale(1.1);
-  box-shadow: 0 0 10px #4a9ce0;
+.month-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 5px;
+  flex: 1;
 }
 
-/* General Form Styling for all tabs */
-form input,
-form button,
-textarea {
-  padding: 12px;
-  border-radius: 8px;
-  border: none;
-  outline: none;
-  font-family: "Courier New", monospace;
-  font-size: 1rem;
-  margin-bottom: 10px;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-/* Input styling */
-form input,
-textarea {
+.month-grid .day {
   background: #2e2e4d;
+  padding: 15px;
+  text-align: center;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.month-grid .day:hover {
+  box-shadow: 0 0 15px #ff9acb;
+  transform: scale(1.05);
+}
+
+/* Weekly totals sidebar */
+.weekly-totals {
+  width: 150px;
+  background: #2e2e4d;
+  border-radius: 10px;
+  padding: 10px;
+  height: fit-content;
+}
+
+.weekly-totals ul {
+  list-style: none;
+  padding: 0;
+}
+
+.weekly-totals li {
+  margin-bottom: 10px;
+  color: #ff9acb;
+}
+
+/* Modal */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 10;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(26, 26, 46, 0.85);
+}
+
+.modal-content {
+  background: #2e2e4d;
+  margin: 10% auto;
+  padding: 20px;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 400px;
+  text-align: center;
+  color: #ffe6f3;
+  box-shadow: 0 0 20px #ff9acb;
+}
+
+.modal-content input {
+  width: 80%;
+  margin: 10px 0;
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  outline: none;
+  background: #1a1a2e;
   color: #f0f0f0;
 }
 
-form input::placeholder,
-textarea::placeholder {
-  color: #b5b5c3;
-}
-
-form input:focus,
-textarea:focus {
-  box-shadow: 0 0 10px #ff9acb;
-  transform: scale(1.02);
-}
-
-/* Button styling */
-form button {
+.modal-content button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
   background: linear-gradient(90deg, #ff9acb, #ffe6f3);
   color: #1a1a2e;
   font-weight: bold;
   cursor: pointer;
+  margin-top: 10px;
+  transition: 0.2s;
 }
 
-form button:hover {
-  transform: scale(1.05);
+.modal-content button:hover {
   box-shadow: 0 0 15px #ff9acb;
+  transform: scale(1.05);
 }
 
-/* Bills Tab */
-#bills {
-  min-height: 60vh;
+.close {
+  float: right;
+  cursor: pointer;
+  font-size: 1.5rem;
 }
 
-.bill-form {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.bill-list {
-  margin-top: 25px;
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-
-.bill-item {
-  background: linear-gradient(145deg, #2e2e4d, #1a1a2e);
-  border: 1px dashed #ff9acb;
-  padding: 15px;
+/* Savings sidebar */
+.savings-sidebar {
+  background: #2e2e4d;
   border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(255, 154, 203, 0.3);
-  position: relative;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  padding: 15px;
+  margin-top: 20px;
+  max-width: 250px;
 }
 
-.bill-item:hover {
-  transform: scale(1.02);
-  box-shadow: 0 6px 20px rgba(255, 154, 203, 0.5);
-}
-
-.bill-item h4 {
-  font-size: 1.2rem;
-  margin: 0 0 5px;
-  color: #ff9acb;
-  text-shadow: 1px 1px 2px #ffcdf1;
-}
-
-.bill-item p {
-  margin: 2px 0;
+.savings-sidebar input {
+  width: 80%;
+  margin-bottom: 10px;
+  padding: 8px;
+  border-radius: 6px;
+  border: none;
+  outline: none;
+  background: #1a1a2e;
   color: #f0f0f0;
 }
 
-.delete-btn {
-  position: absolute;
-  right: 10px;
-  top: 10px;
-  font-size: 0.9rem;
-  background: #ff6b81;
-  border: none;
-  padding: 4px 8px;
+.savings-sidebar button {
+  padding: 6px 12px;
   border-radius: 6px;
-  cursor: pointer;
-  color: #fff;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.delete-btn:hover {
-  background: #ff4c61;
-  transform: scale(1.1);
-  box-shadow: 0 0 10px #ff4c61;
-}
-
-.receipt-total {
-  margin-top: 30px;
-  text-align: center;
-  font-size: 1.4rem;
-  color: #ffe6f3;
-  text-shadow: 1px 1px 3px #ff9acb;
-}
-
-.receipt-line {
-  height: 1px;
-  width: 100%;
-  border-bottom: 1px dashed #ff9acb;
-  margin: 10px 0;
-}
-
-.receipt-total-text {
-  margin: 0;
+  border: none;
+  background: #6bc1ff;
+  color: #1a1a2e;
   font-weight: bold;
+  cursor: pointer;
 }
 
+.savings-sidebar button:hover {
+  background: #4a9ce0;
+  transform: scale(1.05);
+}
+
+/* Sparkle animation */
 @keyframes sparkle {
   0% { box-shadow: 0 0 0px #ff9acb; }
   50% { box-shadow: 0 0 15px #ff9acb; }
   100% { box-shadow: 0 0 0px #ff9acb; }
-}
-
-/* Notes Tab */
-#notes textarea {
-  width: 100%;
-  min-height: 200px;
-  resize: vertical;
-}
-
-/* Goals Tab */
-#goals input {
-  width: 100%;
-}
-
-/* Settings Tab */
-#settings input {
-  width: 100%;
 }
