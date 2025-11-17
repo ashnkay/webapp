@@ -1,3 +1,4 @@
+/* =================== GENERAL STYLES =================== */
 body {
   margin: 0;
   font-family: "Courier New", monospace;
@@ -5,108 +6,99 @@ body {
   color: #f0f0f0;
 }
 
-/* Header */
 header {
   text-align: center;
   padding: 20px;
-  background: #2e2e4d;
+  font-size: 1.8rem;
   color: #ffe6f3;
   text-shadow: 1px 1px 3px #ff9acb;
 }
 
-/* Tabs */
 .tabs {
   display: flex;
   justify-content: center;
+  gap: 10px;
+  padding: 10px;
   background: #2e2e4d;
 }
 
 .tabs button {
-  background: none;
+  padding: 10px 20px;
   border: none;
-  color: #ffe6f3;
-  padding: 15px 25px;
+  border-radius: 8px;
+  background: #3a3a6e;
+  color: #f0f0f0;
   cursor: pointer;
   font-weight: bold;
-  transition: 0.2s;
+  transition: all 0.2s ease;
 }
 
 .tabs button:hover {
-  color: #ff9acb;
+  transform: scale(1.05);
+  box-shadow: 0 0 10px #ff9acb;
 }
 
 .active-tab {
-  color: #ff9acb;
-  border-bottom: 2px solid #ff9acb;
+  background: linear-gradient(90deg, #ff9acb, #ffe6f3);
+  color: #1a1a2e;
 }
 
-/* Tab sections */
+/* =================== TABS =================== */
 .tab {
   display: none;
   padding: 20px;
+  min-height: 80vh;
 }
 
 .tab.active {
   display: block;
 }
 
-/* Calendar grid */
+/* =================== CALENDAR =================== */
 .calendar-container {
   display: flex;
   gap: 20px;
-  flex-wrap: wrap;
 }
 
 .month-grid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   gap: 5px;
-  flex: 1;
+  flex: 3;
 }
 
-.month-grid .day {
+.day {
   background: #2e2e4d;
   padding: 15px;
-  text-align: center;
   border-radius: 8px;
+  position: relative;
+  min-height: 60px;
   cursor: pointer;
-  transition: 0.2s;
+  transition: all 0.2s ease;
 }
 
-.month-grid .day:hover {
+.day:hover {
+  transform: scale(1.03);
   box-shadow: 0 0 15px #ff9acb;
-  transform: scale(1.05);
 }
 
-/* Weekly totals sidebar */
-.weekly-totals {
-  width: 150px;
-  background: #2e2e4d;
-  border-radius: 10px;
-  padding: 10px;
-  height: fit-content;
+/* Glow for days with bills (JS will add 'has-bill' class) */
+.day.has-bill {
+  box-shadow: 0 0 10px #6bc1ff inset, 0 0 15px #ff9acb;
+  border: 1px solid #ff9acb;
 }
 
-.weekly-totals ul {
-  list-style: none;
-  padding: 0;
-}
-
-.weekly-totals li {
-  margin-bottom: 10px;
-  color: #ff9acb;
-}
-
-/* Modal */
+/* =================== MODAL =================== */
 .modal {
   display: none;
   position: fixed;
-  z-index: 10;
+  z-index: 100;
   left: 0;
   top: 0;
   width: 100%;
   height: 100%;
-  background: rgba(26, 26, 46, 0.85);
+  background: rgba(26, 26, 46, 0.9);
+  overflow: auto;
 }
 
 .modal-content {
@@ -116,83 +108,169 @@ header {
   border-radius: 10px;
   width: 90%;
   max-width: 400px;
-  text-align: center;
-  color: #ffe6f3;
+  color: #f0f0f0;
   box-shadow: 0 0 20px #ff9acb;
 }
 
+.modal-content h3 {
+  text-align: center;
+  color: #ffe6f3;
+  text-shadow: 1px 1px 2px #ff9acb;
+}
+
 .modal-content input {
-  width: 80%;
-  margin: 10px 0;
+  width: 100%;
   padding: 10px;
+  margin: 5px 0;
   border: none;
-  border-radius: 8px;
-  outline: none;
+  border-radius: 6px;
   background: #1a1a2e;
   color: #f0f0f0;
 }
 
 .modal-content button {
-  padding: 10px 20px;
-  border: none;
-  border-radius: 8px;
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
   background: linear-gradient(90deg, #ff9acb, #ffe6f3);
   color: #1a1a2e;
   font-weight: bold;
+  border: none;
+  border-radius: 6px;
   cursor: pointer;
-  margin-top: 10px;
-  transition: 0.2s;
+  transition: all 0.2s ease;
 }
 
 .modal-content button:hover {
-  box-shadow: 0 0 15px #ff9acb;
   transform: scale(1.05);
+  box-shadow: 0 0 15px #ff9acb;
 }
 
 .close {
-  float: right;
-  cursor: pointer;
+  position: absolute;
+  right: 15px;
+  top: 10px;
   font-size: 1.5rem;
+  cursor: pointer;
+  color: #ff6b81;
 }
 
-/* Savings sidebar */
-.savings-sidebar {
+/* =================== WEEKLY TOTALS =================== */
+.weekly-totals {
+  flex: 1;
   background: #2e2e4d;
-  border-radius: 10px;
   padding: 15px;
+  border-radius: 10px;
+}
+
+.weekly-totals h3 {
+  text-align: center;
+  color: #ffe6f3;
+  text-shadow: 1px 1px 2px #ff9acb;
+}
+
+.weekly-totals ul {
+  list-style: none;
+  padding: 0;
+}
+
+.weekly-totals li {
+  padding: 8px;
+  margin-bottom: 5px;
+  background: #1a1a2e;
+  border-radius: 6px;
+  text-align: center;
+  color: #6bc1ff;
+  font-weight: bold;
+}
+
+/* =================== SAVINGS SIDEBAR =================== */
+.savings-sidebar {
   margin-top: 20px;
-  max-width: 250px;
+  background: #2e2e4d;
+  padding: 15px;
+  border-radius: 10px;
+}
+
+.savings-sidebar h3 {
+  text-align: center;
+  color: #ffe6f3;
+  text-shadow: 1px 1px 2px #ff9acb;
 }
 
 .savings-sidebar input {
-  width: 80%;
-  margin-bottom: 10px;
+  width: 100%;
   padding: 8px;
+  margin: 5px 0;
   border-radius: 6px;
   border: none;
-  outline: none;
   background: #1a1a2e;
   color: #f0f0f0;
 }
 
 .savings-sidebar button {
-  padding: 6px 12px;
+  width: 100%;
+  padding: 8px;
+  margin: 5px 0;
   border-radius: 6px;
   border: none;
   background: #6bc1ff;
   color: #1a1a2e;
   font-weight: bold;
   cursor: pointer;
+  transition: all 0.2s ease;
 }
 
 .savings-sidebar button:hover {
   background: #4a9ce0;
   transform: scale(1.05);
+  box-shadow: 0 0 10px #4a9ce0;
 }
 
-/* Sparkle animation */
-@keyframes sparkle {
-  0% { box-shadow: 0 0 0px #ff9acb; }
-  50% { box-shadow: 0 0 15px #ff9acb; }
-  100% { box-shadow: 0 0 0px #ff9acb; }
+/* =================== BILL LIST INSIDE MODAL =================== */
+#billList {
+  list-style: none;
+  padding: 0;
+  margin: 10px 0;
+}
+
+#billList li {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px;
+  margin-bottom: 5px;
+  background: #1a1a2e;
+  border-radius: 6px;
+  color: #ffe6f3;
+}
+
+#billList li button {
+  padding: 2px 6px;
+  font-size: 0.8rem;
+  margin-left: 5px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+#billList li .edit-btn {
+  background: #6bc1ff;
+  color: #1a1a2e;
+}
+
+#billList li .edit-btn:hover {
+  background: #4a9ce0;
+  transform: scale(1.1);
+  box-shadow: 0 0 8px #4a9ce0;
+}
+
+#billList li .delete-btn {
+  background: #ff6b81;
+  color: #fff;
+}
+
+#billList li .delete-btn:hover {
+  background: #ff4c61;
+  transform: scale(1.1);
+  box-shadow: 0 0 8px #ff4c61;
 }
