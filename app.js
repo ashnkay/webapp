@@ -8,10 +8,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
   tabs.forEach(tab => {
     tab.addEventListener("click", () => {
-      const target = tab.dataset.tab;
+      const targetId = tab.getAttribute("data-tab");
+      const targetSection = document.getElementById(targetId);
 
+      if (!targetSection) return;
+
+      // Remove 'active' from all sections
       sections.forEach(sec => sec.classList.remove("active"));
-      document.getElementById(target).classList.add("active");
+      targetSection.classList.add("active");
+
+      // Optional: highlight active tab button
+      tabs.forEach(t => t.classList.remove("active-tab"));
+      tab.classList.add("active-tab");
     });
   });
 
@@ -27,12 +35,6 @@ document.addEventListener("DOMContentLoaded", () => {
   // Render bills on screen
   function renderBills() {
     billList.innerHTML = "";
-    // Sparkle animation for newest bill
-const lastBill = billList.lastChild;
-if (lastBill) {
-  lastBill.style.animation = "sparkle 0.8s ease";
-  setTimeout(() => lastBill.style.animation = "", 800);
-}
 
     bills.forEach((bill, index) => {
       const div = document.createElement("div");
@@ -46,6 +48,10 @@ if (lastBill) {
       `;
 
       billList.appendChild(div);
+
+      // Sparkle animation for new bill
+      div.style.animation = "sparkle 0.8s ease";
+      setTimeout(() => div.style.animation = "", 800);
     });
 
     calculateTotal();
@@ -53,11 +59,13 @@ if (lastBill) {
 
   // Add a new bill
   billForm.addEventListener("submit", e => {
-    e.preventDefault(); // prevents page reload
+    e.preventDefault();
 
-    const name = document.getElementById("billName").value;
+    const name = document.getElementById("billName").value.trim();
     const amount = parseFloat(document.getElementById("billAmount").value);
     const due = document.getElementById("billDue").value;
+
+    if (!name || isNaN(amount) || !due) return;
 
     bills.push({ name, amount, due });
     localStorage.setItem("bills", JSON.stringify(bills));
