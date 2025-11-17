@@ -36,7 +36,24 @@
     </section>
 
     <!-- BILLS TAB (you'll paste the receipt system here later) -->
-    <section id="bills" class="tab"></section>
+   <section id="bills" class="tab">
+  <h2>Weekly Bills</h2>
+
+  <form id="billForm" class="bill-form">
+    <input type="text" id="billName" placeholder="Bill name..." required>
+    <input type="number" id="billAmount" placeholder="Amount ($)" step="0.01" required>
+    <input type="date" id="billDue" required>
+    <button type="submit">Add Bill</button>
+  </form>
+
+  <div id="billList" class="bill-list"></div>
+
+  <div class="receipt-total">
+    <div class="receipt-line"></div>
+    <p class="receipt-total-text">TOTAL: $<span id="totalAmount">0.00</span></p>
+    <div class="receipt-line"></div>
+  </div>
+</section>
 
     <!-- NOTES TAB -->
     <section id="notes" class="tab"></section>
