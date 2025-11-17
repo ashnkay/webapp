@@ -1,1 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kayla's App</title>
 
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- Manifest -->
+  <link rel="manifest" href="manifest.json">
+
+  <!-- iOS support -->
+  <link rel="apple-touch-icon" href="icon.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+</head>
+<body>
+
+  <header>
+    <h1>Kayla’s Planner App</h1>
+  </header>
+
+  <nav class="tabs">
+    <button data-tab="home">Home</button>
+    <button data-tab="bills">Bills</button>
+    <button data-tab="notes">Notes</button>
+    <button data-tab="goals">Goals</button>
+    <button data-tab="settings">Settings</button>
+  </nav>
+
+  <main>
+    <!-- HOME TAB -->
+    <section id="home" class="tab active">
+      <h2>Welcome, Kayla</h2>
+      <p>Your magical planner begins right here.</p>
+    </section>
+
+    <!-- BILLS TAB (you'll paste the receipt system here later) -->
+    <section id="bills" class="tab"></section>
+
+    <!-- NOTES TAB -->
+    <section id="notes" class="tab"></section>
+
+    <!-- GOALS TAB -->
+    <section id="goals" class="tab"></section>
+
+    <!-- SETTINGS TAB -->
+    <section id="settings" class="tab"></section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
