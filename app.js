@@ -74,39 +74,56 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // ======= RENDER BILLS LIST IN MODAL =======
-  function renderBillList(date) {
-    billList.innerHTML = "";
-    if (!bills[date]) bills[date] = [];
-    bills[date].forEach((bill, idx) => {
-      const li = document.createElement("li");
-      li.innerHTML = `
-        ${bill.name}: $${bill.amount.toFixed(2)}
-        <button class="edit-btn">Edit</button>
-        <button class="delete-btn">Delete</button>
-      `;
-      // Delete
-      li.querySelector(".delete-btn").addEventListener("click", () => {
-        bills[date].splice(idx, 1);
-        if (bills[date].length === 0) delete bills[date];
+ // Inside renderBillList() after rendering bills for the modal
+function renderBillList(date) {
+  billList.innerHTML = "";
+  const dayDiv = document.querySelector(`[data-date='${date}']`);
+
+  if (!bills[date]) bills[date] = [];
+
+  bills[date].forEach((bill, idx) => {
+    const li = document.createElement("li");
+    li.innerHTML = `
+      ${bill.name}: $${bill.amount.toFixed(2)}
+      <button class="edit-btn">Edit</button>
+      <button class="delete-btn">Delete</button>
+    `;
+
+    // Delete bill
+    li.querySelector(".delete-btn").addEventListener("click", () => {
+      bills[date].splice(idx, 1);
+      if (bills[date].length === 0) {
+        delete bills[date];
+        dayDiv.classList.remove("has-bill"); // Remove highlight if no bills
+      }
+      localStorage.setItem("bills", JSON.stringify(bills));
+      renderBillList(date);
+      calculateWeeklyTotals();
+    });
+
+    // Edit bill
+    li.querySelector(".edit-btn").addEventListener("click", () => {
+      const newName = prompt("Edit Bill Name:", bill.name);
+      const newAmount = parseFloat(prompt("Edit Amount:", bill.amount));
+      if (newName && !isNaN(newAmount) && newAmount > 0) {
+        bills[date][idx].name = newName;
+        bills[date][idx].amount = newAmount;
         localStorage.setItem("bills", JSON.stringify(bills));
         renderBillList(date);
         calculateWeeklyTotals();
-      });
-      // Edit
-      li.querySelector(".edit-btn").addEventListener("click", () => {
-        const newName = prompt("Edit Bill Name:", bill.name);
-        const newAmount = parseFloat(prompt("Edit Amount:", bill.amount));
-        if (newName && !isNaN(newAmount) && newAmount > 0) {
-          bills[date][idx].name = newName;
-          bills[date][idx].amount = newAmount;
-          localStorage.setItem("bills", JSON.stringify(bills));
-          renderBillList(date);
-          calculateWeeklyTotals();
-        }
-      });
-      billList.appendChild(li);
+      }
     });
+
+    billList.appendChild(li);
+  });
+
+  // Add glow class if there are bills
+  if (bills[date] && bills[date].length > 0) {
+    dayDiv.classList.add("has-bill");
+  } else {
+    dayDiv.classList.remove("has-bill");
   }
+}
 
   // ======= SAVE BILL BUTTON =======
   saveBillBtn.addEventListener("click", () => {
