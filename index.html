@@ -1,31 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- iOS Home Screen Icon -->
-<link rel="apple-touch-icon" href="IMG_1826.png">
-<meta name="apple-mobile-web-app-title" content="Planner">
-<meta name="apple-mobile-web-app-capable" content="yes">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Kayla's Planner App</title>
+  <title>Monthly Planner</title>
 
   <link rel="stylesheet" href="styles.css">
 
-  <!-- Manifest -->
+  <!-- Manifest for PWA -->
   <link rel="manifest" href="manifest.json">
 
   <!-- iOS support -->
-  <link rel="apple-touch-icon" href="IMG.1825.jpeg">
+  <link rel="apple-touch-icon" href="apple-icon.png">
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-title" content="✨Planner✨">
 </head>
 <body>
 
   <header>
-    <h1>Kayla’s Planner App</h1>
+    <h1>Kayla’s Monthly Planner</h1>
   </header>
 
-  <!-- Tabs Navigation -->
   <nav class="tabs">
     <button data-tab="home" class="active-tab">Home</button>
     <button data-tab="bills">Bills</button>
@@ -38,55 +32,54 @@
     <!-- HOME TAB -->
     <section id="home" class="tab active">
       <h2>Welcome, Kayla</h2>
-      <p>Your magical planner begins right here.</p>
+      <p>Your magical monthly planner begins here.</p>
     </section>
 
     <!-- BILLS TAB -->
     <section id="bills" class="tab">
-      <h2>Weekly Bills</h2>
 
-      <form id="billForm" class="bill-form">
-        <input type="text" id="billName" placeholder="Bill name..." required>
-        <input type="number" id="billAmount" placeholder="Amount ($)" step="0.01" required>
-        <input type="date" id="billDue" required>
-        <button type="submit">Add Bill</button>
-      </form>
+      <h2>Monthly Bills</h2>
 
-      <div id="billList" class="bill-list"></div>
+      <div class="calendar-container">
+        <div class="month-grid" id="monthGrid"></div>
 
-      <div class="receipt-total">
-        <div class="receipt-line"></div>
-        <p class="receipt-total-text">TOTAL: $<span id="totalAmount">0.00</span></p>
-        <div class="receipt-line"></div>
+        <div class="weekly-totals">
+          <h3>Weekly Totals</h3>
+          <ul id="weeklyTotalsList"></ul>
+        </div>
       </div>
+
+      <!-- Modal -->
+      <div id="billModal" class="modal">
+        <div class="modal-content">
+          <span class="close">&times;</span>
+          <h3>Add Bill for <span id="modalDay"></span></h3>
+          <input type="text" id="modalBillName" placeholder="Bill Name">
+          <input type="number" id="modalBillAmount" placeholder="Amount ($)">
+          <button id="saveBillBtn">Save Bill</button>
+        </div>
+      </div>
+
+      <!-- Savings Sidebar -->
+      <div class="savings-sidebar">
+        <h3>Savings for Bills</h3>
+        <input type="number" id="savingsInput" placeholder="Add to savings">
+        <button id="saveSavingsBtn">Add</button>
+        <p>Total saved: $<span id="savingsTotal">0.00</span></p>
+      </div>
+
     </section>
 
     <!-- NOTES TAB -->
-    <section id="notes" class="tab">
-      <h2>Notes</h2>
-      <p>Write down your thoughts and reminders here.</p>
-    </section>
+    <section id="notes" class="tab"></section>
 
     <!-- GOALS TAB -->
-    <section id="goals" class="tab">
-      <h2>Goals</h2>
-      <p>Track your weekly or long-term goals here.</p>
-    </section>
+    <section id="goals" class="tab"></section>
 
     <!-- SETTINGS TAB -->
-    <section id="settings" class="tab">
-      <h2>Settings</h2>
-      <p>Customize your app experience here.</p>
-    </section>
+    <section id="settings" class="tab"></section>
   </main>
 
   <script src="app.js"></script>
-
-  <!-- Service Worker Registration -->
-  <script>
-    if ("serviceWorker" in navigator) {
-      navigator.serviceWorker.register("service-worker.js");
-    }
-  </script>
 </body>
 </html>
