@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Monthly Planner</title>
+  <title>Kayla's Monthly Planner</title>
 
   <link rel="stylesheet" href="styles.css">
 
@@ -11,13 +11,13 @@
   <link rel="manifest" href="manifest.json">
 
   <!-- iOS support -->
-  <link rel="apple-touch-icon" href="IMG_1826.png">
+  <link rel="apple-touch-icon" href="apple-icon.png">
   <meta name="apple-mobile-web-app-capable" content="yes">
 </head>
 <body>
 
   <header>
-    <h1>Monthly Planner</h1>
+    <h1>Kayla’s Monthly Planner</h1>
   </header>
 
   <nav class="tabs">
@@ -31,8 +31,8 @@
   <main>
     <!-- HOME TAB -->
     <section id="home" class="tab active">
-      <h2>Welcome</h2>
-      <p>Press "SHARE" then "ADD TO HOMESCREEN"</p>
+      <h2>Welcome, Kayla</h2>
+      <p>Your magical monthly planner begins here.</p>
     </section>
 
     <!-- BILLS TAB -->
@@ -41,19 +41,26 @@
       <h2>Monthly Bills</h2>
 
       <div class="calendar-container">
+        <!-- Monthly calendar grid -->
         <div class="month-grid" id="monthGrid"></div>
 
+        <!-- Weekly totals sidebar -->
         <div class="weekly-totals">
           <h3>Weekly Totals</h3>
           <ul id="weeklyTotalsList"></ul>
         </div>
       </div>
 
-      <!-- Modal -->
+      <!-- Modal for adding/editing bills -->
       <div id="billModal" class="modal">
         <div class="modal-content">
           <span class="close">&times;</span>
-          <h3>Add Bill for <span id="modalDay"></span></h3>
+          <h3>Bills for <span id="modalDay"></span></h3>
+          
+          <!-- List of existing bills -->
+          <ul id="billList"></ul>
+
+          <!-- Add new bill -->
           <input type="text" id="modalBillName" placeholder="Bill Name">
           <input type="number" id="modalBillAmount" placeholder="Amount ($)">
           <button id="saveBillBtn">Save Bill</button>
@@ -63,8 +70,15 @@
       <!-- Savings Sidebar -->
       <div class="savings-sidebar">
         <h3>Savings for Bills</h3>
-        <input type="number" id="savingsInput" placeholder="Add to savings">
-        <button id="saveSavingsBtn">Add</button>
+
+        <!-- Add to savings -->
+        <input type="number" id="savingsAddInput" placeholder="Add to savings">
+        <button id="addSavingsBtn">Add</button>
+
+        <!-- Subtract from savings -->
+        <input type="number" id="savingsSubtractInput" placeholder="Subtract from savings">
+        <button id="subtractSavingsBtn">Subtract</button>
+
         <p>Total saved: $<span id="savingsTotal">0.00</span></p>
       </div>
 
