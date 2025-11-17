@@ -37,3 +37,93 @@ header {
 .tab.active {
   display: block;
 }
+/* Bills Tab */
+
+#bills {
+  padding: 20px;
+  font-family: "Courier New", monospace;
+}
+
+.bill-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.bill-form input,
+.bill-form button {
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+}
+
+.bill-form button {
+  background: #ffe6f3;
+  border: 1px dashed #ff9acb;
+  cursor: pointer;
+}
+
+.bill-list {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* Receipt Item */
+
+.bill-item {
+  background: #fffdf8;
+  border: 1px dashed #d9d4c7;
+  padding: 15px;
+  border-radius: 6px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  position: relative;
+}
+
+.bill-item h4 {
+  font-size: 1.1rem;
+  margin: 0 0 5px;
+}
+
+.bill-item p {
+  margin: 2px 0;
+}
+
+.delete-btn {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  font-size: 0.9rem;
+  background: #ffb3be;
+  border: none;
+  padding: 4px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.delete-btn:hover {
+  background: #ff8a9a;
+}
+
+/* Receipt Total */
+
+.receipt-total {
+  margin-top: 25px;
+  text-align: center;
+  font-size: 1.2rem;
+  color: #333;
+}
+
+.receipt-line {
+  height: 1px;
+  width: 100%;
+  border-bottom: 1px dashed #ded6c9;
+  margin: 10px 0;
+}
+
+.receipt-total-text {
+  margin: 0;
+  font-weight: bold;
+}
