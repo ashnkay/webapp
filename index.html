@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Kayla's App</title>
+  <title>Kayla's Planner App</title>
 
   <link rel="stylesheet" href="styles.css">
 
@@ -35,25 +35,25 @@
       <p>Your magical planner begins right here.</p>
     </section>
 
-    <!-- BILLS TAB (you'll paste the receipt system here later) -->
-   <section id="bills" class="tab">
-  <h2>Weekly Bills</h2>
+    <!-- BILLS TAB -->
+    <section id="bills" class="tab">
+      <h2>Weekly Bills</h2>
 
-  <form id="billForm" class="bill-form">
-    <input type="text" id="billName" placeholder="Bill name..." required>
-    <input type="number" id="billAmount" placeholder="Amount ($)" step="0.01" required>
-    <input type="date" id="billDue" required>
-    <button type="submit">Add Bill</button>
-  </form>
+      <form id="billForm" class="bill-form">
+        <input type="text" id="billName" placeholder="Bill name..." required>
+        <input type="number" id="billAmount" placeholder="Amount ($)" step="0.01" required>
+        <input type="date" id="billDue" required>
+        <button type="submit">Add Bill</button>
+      </form>
 
-  <div id="billList" class="bill-list"></div>
+      <div id="billList" class="bill-list"></div>
 
-  <div class="receipt-total">
-    <div class="receipt-line"></div>
-    <p class="receipt-total-text">TOTAL: $<span id="totalAmount">0.00</span></p>
-    <div class="receipt-line"></div>
-  </div>
-</section>
+      <div class="receipt-total">
+        <div class="receipt-line"></div>
+        <p class="receipt-total-text">TOTAL: $<span id="totalAmount">0.00</span></p>
+        <div class="receipt-line"></div>
+      </div>
+    </section>
 
     <!-- NOTES TAB -->
     <section id="notes" class="tab"></section>
@@ -66,10 +66,12 @@
   </main>
 
   <script src="app.js"></script>
+
+  <!-- Service Worker Registration -->
   <script>
-  if ("serviceWorker" in navigator) {
-    navigator.serviceWorker.register("service-worker.js");
-  }
-</script>
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("service-worker.js");
+    }
+  </script>
 </body>
 </html>
