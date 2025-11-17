@@ -70,6 +70,26 @@ header h1 {
   margin-bottom: 20px;
   text-shadow: 1px 1px 3px #ff9acb;
 }
+.subtract-btn {
+  position: absolute;
+  right: 80px;
+  top: 10px;
+  font-size: 0.9rem;
+  background: #6bc1ff;
+  border: none;
+  padding: 4px 8px;
+  border-radius: 6px;
+  cursor: pointer;
+  color: #1a1a2e;
+  font-weight: bold;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.subtract-btn:hover {
+  background: #4a9ce0;
+  transform: scale(1.1);
+  box-shadow: 0 0 10px #4a9ce0;
+}
 
 /* General Form Styling for all tabs */
 form input,
