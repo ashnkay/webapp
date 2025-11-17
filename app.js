@@ -13,11 +13,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (!targetSection) return;
 
-      // Remove 'active' from all sections
+      // Hide all sections
       sections.forEach(sec => sec.classList.remove("active"));
+
+      // Show clicked section
       targetSection.classList.add("active");
 
-      // Optional: highlight active tab button
+      // Highlight active tab
       tabs.forEach(t => t.classList.remove("active-tab"));
       tab.classList.add("active-tab");
     });
