@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", () => {
-
   // ======= TAB SWITCHING =======
   const tabs = document.querySelectorAll(".tabs button");
   const sections = document.querySelectorAll(".tab");
@@ -8,8 +7,6 @@ document.addEventListener("DOMContentLoaded", () => {
     tab.addEventListener("click", () => {
       const targetId = tab.getAttribute("data-tab");
       const targetSection = document.getElementById(targetId);
-      if (!targetSection) return;
-
       sections.forEach(sec => sec.classList.remove("active"));
       targetSection.classList.add("active");
 
@@ -18,82 +15,110 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // ======= BILLS SYSTEM =======
-  let bills = JSON.parse(localStorage.getItem("bills")) || [];
+  // ======= MONTHLY CALENDAR =======
+  const monthGrid = document.getElementById("monthGrid");
+  const billModal = document.getElementById("billModal");
+  const modalDay = document.getElementById("modalDay");
+  const modalBillName = document.getElementById("modalBillName");
+  const modalBillAmount = document.getElementById("modalBillAmount");
+  const saveBillBtn = document.getElementById("saveBillBtn");
+  const closeModal = document.querySelector(".close");
+  const weeklyTotalsList = document.getElementById("weeklyTotalsList");
 
-  const billForm = document.getElementById("billForm");
-  const billList = document.getElementById("billList");
-  const totalAmount = document.getElementById("totalAmount");
+  const savingsInput = document.getElementById("savingsInput");
+  const saveSavingsBtn = document.getElementById("saveSavingsBtn");
+  const savingsTotal = document.getElementById("savingsTotal");
 
-  function renderBills() {
-    billList.innerHTML = "";
+  let bills = JSON.parse(localStorage.getItem("bills")) || {};
+  let savings = parseFloat(localStorage.getItem("savings")) || 0;
+  savingsTotal.textContent = savings.toFixed(2);
 
-    bills.forEach((bill, index) => {
-      const div = document.createElement("div");
-      div.className = "bill-item";
+  const today = new Date();
+  const year = today.getFullYear();
+  const month = today.getMonth();
+  const firstDay = new Date(year, month, 1).getDay();
+  const lastDate = new Date(year, month + 1, 0).getDate();
 
-      div.innerHTML = `
-        <h4>${bill.name}</h4>
-        <p>Amount: $${bill.amount.toFixed(2)}</p>
-        <p>Due: ${bill.due}</p>
-        <button class="delete-btn" onclick="deleteBill(${index})">Delete</button>
-        <button class="subtract-btn" onclick="subtractBill(${index})">Subtract</button>
-      `;
+  let weekCounter = 1;
+  let weekSums = {};
 
-      billList.appendChild(div);
-      div.style.animation = "sparkle 0.8s ease";
-      setTimeout(() => div.style.animation = "", 800);
-    });
-
-    calculateTotal();
+  // Generate calendar
+  for (let i = 0; i < firstDay; i++) {
+    const emptyCell = document.createElement("div");
+    monthGrid.appendChild(emptyCell);
   }
 
-  billForm.addEventListener("submit", e => {
-    e.preventDefault();
-    const name = document.getElementById("billName").value.trim();
-    const amount = parseFloat(document.getElementById("billAmount").value);
-    const due = document.getElementById("billDue").value;
+  for (let day = 1; day <= lastDate; day++) {
+    const dayDiv = document.createElement("div");
+    dayDiv.className = "day";
+    dayDiv.textContent = day;
+    dayDiv.dataset.date = `${year}-${month + 1}-${day}`;
+    monthGrid.appendChild(dayDiv);
 
-    if (!name || isNaN(amount) || !due) return;
+    // Assign week number
+    const weekNumber = Math.ceil((day + firstDay) / 7);
+    dayDiv.dataset.week = weekNumber;
 
-    bills.push({ name, amount, due });
-    localStorage.setItem("bills", JSON.stringify(bills));
-    billForm.reset();
-    renderBills();
+    dayDiv.addEventListener("click", () => {
+      modalDay.textContent = `Day ${day}`;
+      billModal.style.display = "block";
+      modalBillName.value = "";
+      modalBillAmount.value = "";
+      saveBillBtn.dataset.date = dayDiv.dataset.date;
+      saveBillBtn.dataset.week = weekNumber;
+    });
+  }
+
+  // Close modal
+  closeModal.addEventListener("click", () => billModal.style.display = "none");
+  window.addEventListener("click", e => {
+    if (e.target === billModal) billModal.style.display = "none";
   });
 
-  window.deleteBill = function(index) {
-    bills.splice(index, 1);
+  // Save bill
+  saveBillBtn.addEventListener("click", () => {
+    const name = modalBillName.value.trim();
+    const amount = parseFloat(modalBillAmount.value);
+    const date = saveBillBtn.dataset.date;
+    const week = saveBillBtn.dataset.week;
+
+    if (!name || isNaN(amount) || amount <= 0) return;
+
+    if (!bills[date]) bills[date] = [];
+    bills[date].push({ name, amount });
+
     localStorage.setItem("bills", JSON.stringify(bills));
-    renderBills();
-  };
+    billModal.style.display = "none";
+    calculateWeeklyTotals();
+  });
 
-  // ======= SUBTRACT FUNCTION =======
-  window.subtractBill = function(index) {
-    const bill = bills[index];
-    let subtractAmount = prompt(`Enter amount to subtract from "${bill.name}":`, "0");
-
-    if (subtractAmount === null) return; // cancel pressed
-    subtractAmount = parseFloat(subtractAmount);
-
-    if (isNaN(subtractAmount) || subtractAmount <= 0) {
-      alert("Enter a valid number greater than 0.");
-      return;
-    }
-    if (subtractAmount > bill.amount) {
-      alert("Cannot subtract more than the current bill amount.");
-      return;
+  // Calculate weekly totals
+  function calculateWeeklyTotals() {
+    weekSums = {};
+    for (const date in bills) {
+      const week = new Date(date).getDate() + firstDay;
+      const weekNumber = Math.ceil(week / 7);
+      if (!weekSums[weekNumber]) weekSums[weekNumber] = 0;
+      weekSums[weekNumber] += bills[date].reduce((sum, b) => sum + b.amount, 0);
     }
 
-    bills[index].amount -= subtractAmount;
-    localStorage.setItem("bills", JSON.stringify(bills));
-    renderBills();
-  };
-
-  function calculateTotal() {
-    const total = bills.reduce((sum, item) => sum + item.amount, 0);
-    totalAmount.textContent = total.toFixed(2);
+    weeklyTotalsList.innerHTML = "";
+    for (const week in weekSums) {
+      const li = document.createElement("li");
+      li.textContent = `Week ${week}: $${weekSums[week].toFixed(2)}`;
+      weeklyTotalsList.appendChild(li);
+    }
   }
 
-  renderBills();
+  // Savings
+  saveSavingsBtn.addEventListener("click", () => {
+    const amount = parseFloat(savingsInput.value);
+    if (isNaN(amount) || amount <= 0) return;
+    savings += amount;
+    localStorage.setItem("savings", savings);
+    savingsTotal.textContent = savings.toFixed(2);
+    savingsInput.value = "";
+  });
+
+  calculateWeeklyTotals();
 });
