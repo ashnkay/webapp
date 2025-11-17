@@ -27,6 +27,12 @@ document.addEventListener("DOMContentLoaded", () => {
   // Render bills on screen
   function renderBills() {
     billList.innerHTML = "";
+    // Sparkle animation for newest bill
+const lastBill = billList.lastChild;
+if (lastBill) {
+  lastBill.style.animation = "sparkle 0.8s ease";
+  setTimeout(() => lastBill.style.animation = "", 800);
+}
 
     bills.forEach((bill, index) => {
       const div = document.createElement("div");
